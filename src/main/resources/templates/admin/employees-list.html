@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Employés</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="d-flex">
+    <div class="col-2 bg-dark vh-100">
+        <div class="sticky-top">
+            <nav class="navbar bg-dark border-bottom border-white" data-bs-theme="dark mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-white" href="#">
+                        <i class="bi bi-house-door"></i> ONPF
+                    </a>
+                </div>
+            </nav>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="bi bi-speedometer2"></i> Administrateur
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/admin/directions">Gestion Des Directions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/employees/list}">Gestion des Employés</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Contenu principal -->
+    <div class="flex-grow-1 p-3">
+        <div class="container">
+            <h1 class="mt-5">Liste des Employés</h1>
+
+            <!-- Bouton Ajouter un Utilisateur -->
+            <a href="/admin/employees/add" class="btn btn-primary mb-3">
+                <i class="bi bi-person-plus me-2"></i> Ajouter un Utilisateur
+            </a>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email</th>
+                    <th>Direction</th>
+                    <th>Activé</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.username}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.direction != null ? employee.direction.nom : 'Non attribué'}"></td>
+                    <td th:text="${employee.enabled ? 'Oui' : 'Non'}"></td>
+                    <td>
+                        <!-- Formulaire pour supprimer un employé -->
+                        <form th:action="@{/admin/employees/delete/{id}(id=${employee.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+
+                        <!-- Formulaire pour activer ou désactiver -->
+                        <form th:action="@{/admin/employees/enable/{id}(id=${employee.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm" th:if="${!employee.enabled}">Activer</button>
+                        </form>
+
+                        <form th:action="@{/admin/employees/disable/{id}(id=${employee.id})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-warning btn-sm" th:if="${employee.enabled}">Désactiver</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!-- src/main/resources/templates/admin/sidebar.html -->
+<div th:fragment="sidebar">
+    <div class="col-2 bg-dark vh-100">
+        <div class="sticky-top">
+            <nav class="navbar bg-dark border-bottom border-white" data-bs-theme="dark mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-white" href="#">
+                        <i class="bi bi-house-door"></i> ONPF
+                    </a>
+                </div>
+            </nav>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="bi bi-speedometer2"></i> Administrateur
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/admin/directions">Gestion Des Directions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/employees/list}">Gestion des Employés</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
