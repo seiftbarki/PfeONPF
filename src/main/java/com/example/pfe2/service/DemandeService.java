@@ -27,4 +27,8 @@ public class DemandeService {
     public Demande save(Demande demande) {
         return demandeRepository.save(demande);
     }
+    // ✅ Récupérer les demandes assignées à un utilisateur (via son username)
+    public List<Demande> findByUserUsername(String username) {
+        return demandeRepository.findByUserUsername(username);
+    }
 }

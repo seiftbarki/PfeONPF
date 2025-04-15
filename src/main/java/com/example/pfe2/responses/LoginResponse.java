@@ -1,4 +1,4 @@
-package com.example.pfeONPF.responses;
+package com.example.pfe2.responses;
 
 
 public class LoginResponse {
